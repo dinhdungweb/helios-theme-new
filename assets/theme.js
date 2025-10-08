@@ -4135,8 +4135,8 @@ document.addEventListener("DOMContentLoaded", () => {
           useTransform: true,
           arrows: true,
           dots: false,
-          slidesToShow: 8,
-          slidesToScroll: 8,
+          slidesToShow: 7,
+          slidesToScroll: 7,
           centerMode: false,
           verticalSwiping: true,
           vertical: true,
@@ -4176,8 +4176,8 @@ document.addEventListener("DOMContentLoaded", () => {
           {
             breakpoint: 1400,
             settings: {
-              slidesToShow: 8,
-              slidesToScroll: 8,
+              slidesToShow: 7,
+              slidesToScroll: 7,
             }
           }]
 
