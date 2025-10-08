@@ -4155,15 +4155,15 @@ document.addEventListener("DOMContentLoaded", () => {
           {
             breakpoint: 1100,
             settings: {
-              slidesToShow: 6,
-              slidesToScroll: 6
+              slidesToShow: 5,
+              slidesToScroll: 5
             }
           },
           {
             breakpoint: 1200,
             settings: {
-              slidesToShow: 6,
-              slidesToScroll: 6,
+              slidesToShow: 5,
+              slidesToScroll: 5,
             }
           },
           {
