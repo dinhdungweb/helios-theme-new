@@ -126,6 +126,17 @@
             "deadline": "31/10/2025",
             "apply_link": "https://docs.google.com/document/d/1Lu35saLx24ViiCZHQhegduvPqHqmCh56JBh4kN6QX0g/edit?usp=sharing"
           }
+        },
+        "job_74t9Hx": {
+          "type": "job",
+          "settings": {
+            "job_title": "Sales Online",
+            "department": "Bán Hàng",
+            "unit": "",
+            "location": "Hà Nội",
+            "deadline": "31/10/2025",
+            "apply_link": "https://docs.google.com/document/d/1tgVVrOvnRXndtSOGOcN8jq2SLvKj82CyK5v-JIgZfEk/edit?usp=sharing"
+          }
         }
       },
       "block_order": [
@@ -138,7 +149,8 @@
         "job_XmmT44",
         "job_ebazg7",
         "job_kWrJqM",
-        "job_Lzbdne"
+        "job_Lzbdne",
+        "job_74t9Hx"
       ],
       "name": "Danh sách tuyển dụng",
       "settings": {}
