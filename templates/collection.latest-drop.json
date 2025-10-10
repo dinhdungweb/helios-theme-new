@@ -9,11 +9,29 @@
  */
 {
   "sections": {
+    "background_video_responsive_8k84ft": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_shopify_desktop": "shopify://files/videos/bản web hành trình chúc long.mp4",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "video_full_width": true,
+        "video_original_size": false,
+        "video_full_screen": false,
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
     "main": {
       "type": "main-collection",
       "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
+        "show_collection_content": false,
+        "show_collection_image": false,
         "description_position": "top",
         "layout": "rows",
         "grid": 4,
@@ -35,6 +53,7 @@
     }
   },
   "order": [
+    "background_video_responsive_8k84ft",
     "main"
   ]
 }
