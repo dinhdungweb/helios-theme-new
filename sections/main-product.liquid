@@ -573,8 +573,10 @@
                                   assign option_name_lower = option.name | downcase
                                   assign size_chart_options_ring = block.settings.size_chart_variant_ring | downcase | split: ","
                                   assign size_chart_options_bracelet = block.settings.size_chart_variant_bracelet | downcase | split: ","
+                                  assign size_chart_options_bracelet = block.settings.size_chart_variant_accessories | downcase | split: ","
                                   assign option_has_size_chart_ring = false
                                   assign option_has_size_chart_bracelet = false
+                                  assign option_has_size_chart_accessories = false
                             
                                   for size_chart_option_ring in size_chart_options_ring
                                     assign size_chart_option_ring_trim = size_chart_option_ring | strip
@@ -588,6 +590,13 @@
                                     assign size_chart_option_bracelet_trim = size_chart_option_bracelet | strip
                                     if option_name_lower == size_chart_option_bracelet_trim
                                       assign option_has_size_chart_bracelet = true
+                                      break
+                                    endif
+                                  endfor
+                                  for size_chart_option_accessories in size_chart_options_accessories
+                                    assign size_chart_option_accessories_trim = size_chart_option_accessories | strip
+                                    if option_name_lower == size_chart_option_accessories_trim
+                                      assign option_has_size_chart_accessories = true
                                       break
                                     endif
                                   endfor
@@ -615,6 +624,20 @@
                                         <div class="size-chart__inner rte">
                                           <h2>{{ pages[block.settings.size_chart_page_bracelet].title }}</h2>
                                           {{ pages[block.settings.size_chart_page_bracelet].content }}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                {%- endif -%}
+
+                                {%- if option_has_size_chart_accessories and block.settings.size_chart_page_accessories != blank -%}
+                                  <div class="size-chart-container">
+                                    <a href="#size-chart-content" class="size-chart-link">{{ 'products.product.size_chart' | t }}</a>
+                                    <div id="size-chart-content" class="hidden">
+                                      <div class="size-chart">
+                                        <div class="size-chart__inner rte">
+                                          <h2>{{ pages[block.settings.size_chart_page_accessories].title }}</h2>
+                                          {{ pages[block.settings.size_chart_page_accessories].content }}
                                         </div>
                                       </div>
                                     </div>
@@ -661,8 +684,10 @@
                                     assign option_name_lower = option.name | downcase
                                     assign size_chart_options_ring = block.settings.size_chart_variant_ring | downcase | split: ","
                                     assign size_chart_options_bracelet = block.settings.size_chart_variant_bracelet | downcase | split: ","
+                                    assign size_chart_options_bracelet = block.settings.size_chart_variant_accessories | downcase | split: ","
                                     assign option_has_size_chart_ring = false
                                     assign option_has_size_chart_bracelet = false
+                                    assign option_has_size_chart_accessories = false
                               
                                     for size_chart_option_ring in size_chart_options_ring
                                       assign size_chart_option_ring_trim = size_chart_option_ring | strip
@@ -676,6 +701,14 @@
                                       assign size_chart_option_bracelet_trim = size_chart_option_bracelet | strip
                                       if option_name_lower == size_chart_option_bracelet_trim
                                         assign option_has_size_chart_bracelet = true
+                                        break
+                                      endif
+                                    endfor
+
+                                    for size_chart_option_accessories in size_chart_options_accessories
+                                      assign size_chart_option_accessories_trim = size_chart_option_accessories | strip
+                                      if option_name_lower == size_chart_option_accessories_trim
+                                        assign option_has_size_chart_accessories = true
                                         break
                                       endif
                                     endfor
@@ -703,6 +736,20 @@
                                           <div class="size-chart__inner rte">
                                             <h2>{{ pages[block.settings.size_chart_page_bracelet].title }}</h2>
                                             {{ pages[block.settings.size_chart_page_bracelet].content }}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  {%- endif -%}
+
+                                  {%- if option_has_size_chart_accessories and block.settings.size_chart_page_accessories != blank -%}
+                                    <div class="size-chart-container">
+                                      <a href="#size-chart-content" class="size-chart-link">{{ 'products.product.size_chart' | t }}</a>
+                                      <div id="size-chart-content" class="hidden">
+                                        <div class="size-chart">
+                                          <div class="size-chart__inner rte">
+                                            <h2>{{ pages[block.settings.size_chart_page_accessories].title }}</h2>
+                                            {{ pages[block.settings.size_chart_page_accessories].content }}
                                           </div>
                                         </div>
                                       </div>
@@ -1808,6 +1855,17 @@
             "type": "page",
             "id": "size_chart_page_bracelet",
             "label": "Size Chart Page for Bracelet"
+          },
+          {
+            "type": "text",
+            "id": "size_chart_variant_accessories",
+            "label": "Variants for Accessories Size Chart",
+            "default": "accessories"
+          },
+          {
+            "type": "page",
+            "id": "size_chart_page_accessories",
+            "label": "Size Chart Page for Accessories"
           }
         ]
       },
