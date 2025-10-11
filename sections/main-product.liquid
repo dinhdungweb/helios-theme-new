@@ -76,6 +76,19 @@
 
   {% if enable_mobile_sticky_cart and has_buy_buttons %}
     <div class="product-area__add-to-cart-xs footer-button-xs" data-show-in-quickbuy="false">
+      <div class="sticky-cart-info">
+        <span class="sticky-cart-price">
+          {% if product.price_varies %}
+            <span class="from-text">{{ 'products.product.from_lowest_price_html' | t }}</span>
+          {% endif %}
+          <span class="price {% if product.compare_at_price > product.price %}sale{% endif %}">
+            {{ current_variant.price | money }}
+          </span>
+          {% if current_variant.compare_at_price > current_variant.price %}
+            <span class="compare-price">{{ current_variant.compare_at_price | money }}</span>
+          {% endif %}
+        </span>
+      </div>
       <button class="button no-hover">{{ 'products.product.add_to_cart' | t }}</button>
     </div>
   {% endif %}

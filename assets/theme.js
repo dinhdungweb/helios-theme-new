@@ -6606,7 +6606,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!isFeaturedProduct) {
         const $stickyAddToCart = $('.product-area__add-to-cart-xs', target);
         let stickyAddToCartInitialised = !$stickyAddToCart.length;
-        let stickyAddToCartIsUnstuck = false;
+        let stickyAddToCartIsVisible = false;
         const productSection = $('.section-product-template')[0];
 
         /// Work out the tallest product tab and compensate the height of the details area
@@ -6614,16 +6614,27 @@ document.addEventListener("DOMContentLoaded", () => {
         function resizeProductDetails() {
           if (theme.viewport.isXs()) {
             if (!stickyAddToCartInitialised && !isQuickbuy) {
+              // Khởi tạo nút sticky với trạng thái ẩn
+              $stickyAddToCart.addClass('-out');
+              
               $(window).on('throttled-scroll.sticky-add-to-cart', function () {
-                if (productSection.getBoundingClientRect().bottom < $(window).outerHeight()) {
-                  if (!stickyAddToCartIsUnstuck) {
-                    $stickyAddToCart.addClass('-out');
-                    stickyAddToCartIsUnstuck = true;
-                  }
-                } else {
-                  if (stickyAddToCartIsUnstuck) {
+                const $mainBuyButton = $('.product-detail__form__action button[type="submit"]', target);
+                
+                if ($mainBuyButton.length) {
+                  const buyButtonRect = $mainBuyButton[0].getBoundingClientRect();
+                  const windowHeight = $(window).outerHeight();
+                  
+                  // Hiện sticky button khi nút chính scroll ra khỏi viewport (trên hoặc dưới)
+                  // Và ẩn khi đến cuối section product
+                  const shouldShowSticky = (buyButtonRect.bottom < 0 || buyButtonRect.top > windowHeight) 
+                                         && productSection.getBoundingClientRect().bottom > windowHeight;
+                  
+                  if (shouldShowSticky && !stickyAddToCartIsVisible) {
                     $stickyAddToCart.removeClass('-out');
-                    stickyAddToCartIsUnstuck = false;
+                    stickyAddToCartIsVisible = true;
+                  } else if (!shouldShowSticky && stickyAddToCartIsVisible) {
+                    $stickyAddToCart.addClass('-out');
+                    stickyAddToCartIsVisible = false;
                   }
                 }
               });
@@ -6632,6 +6643,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 const btnSubmit = document.querySelector('.product-detail__form button[type="submit"]');
                 // Using 'click' instead of 'submit' to get the form default errors
                 btnSubmit.click();
+              });
+
+              // Cập nhật giá khi variant thay đổi
+              $(window).on('cc-variant-updated.sticky-cart', function(e, args) {
+                if (args.variant) {
+                  const $stickyPrice = $('.footer-button-xs .sticky-cart-price .price');
+                  const $stickyComparePrice = $('.footer-button-xs .sticky-cart-price .compare-price');
+                  
+                  if ($stickyPrice.length) {
+                    $stickyPrice.html(theme.Currency.formatMoney(args.variant.price, theme.moneyFormat));
+                    
+                    // Cập nhật class sale
+                    if (args.variant.compare_at_price && args.variant.compare_at_price > args.variant.price) {
+                      $stickyPrice.addClass('sale');
+                      if ($stickyComparePrice.length) {
+                        $stickyComparePrice.html(theme.Currency.formatMoney(args.variant.compare_at_price, theme.moneyFormat)).show();
+                      } else {
+                        $('.footer-button-xs .sticky-cart-price').append(
+                          '<span class="compare-price">' + theme.Currency.formatMoney(args.variant.compare_at_price, theme.moneyFormat) + '</span>'
+                        );
+                      }
+                    } else {
+                      $stickyPrice.removeClass('sale');
+                      $stickyComparePrice.hide();
+                    }
+                  }
+                }
               });
 
               stickyAddToCartInitialised = true;
@@ -6691,6 +6729,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!isQuickbuy) {
         $(window).off('throttled-scroll.sticky-add-to-cart');
+        $(window).off('cc-variant-updated.sticky-cart');
       }
 
       $(window).off(`.productDetails${sectionUniqueId}`);
