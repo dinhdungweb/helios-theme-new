@@ -385,7 +385,12 @@
                   {% endif %}
 
                 {%- when 'price' -%}
-                  {% if settings.lock_pages_tag_enable %}
+                  {% if product.tags contains 'angia' %}
+                    <!-- Nếu sản phẩm có tag "angia" thì hiển thị "Giá liên hệ" -->
+                    <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
+                      <div class="price theme-money" style="color:#FF0000">Giá liên hệ</div>
+                    </div>
+                  {% elsif settings.lock_pages_tag_enable %}
                     
                     {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
                       Đăng nhập để hiện giá

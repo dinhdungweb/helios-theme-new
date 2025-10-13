@@ -236,7 +236,11 @@
 
       <div class="price">
         
-        {% if settings.lock_pages_tag_enable %}
+        {% if product.tags contains 'angia' %}
+          <!-- Nếu sản phẩm có tag "angia" thì hiển thị "Giá liên hệ" -->
+          <b style="color:#FF0000">Giá liên hệ</b>
+        
+        {% elsif settings.lock_pages_tag_enable %}
           
           {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
             <!-- Nếu khách chưa đăng nhập và giá bị khóa hoàn toàn -->
